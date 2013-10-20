@@ -1,9 +1,9 @@
 module Goal
   class HourCalculator
-    def total_days_until(date = Date.current)
+    def total_days_until(date = Date.today)
       total = 0
-      month = Date.current.month
-      year  = Date.current.year
+      month = Date.today.month
+      year  = Date.today.year
       date.day.downto(1) do |day|
         current = Date.new(year, month, day)
 
@@ -15,7 +15,7 @@ module Goal
 
     def estimated_for(goal)
       current_days = total_days_until
-      total_days   = total_days_until Date.current.end_of_month
+      total_days   = total_days_until(end_of_month)
 
       hours_per_day = goal.to_f / total_days.to_f
 
@@ -31,7 +31,13 @@ module Goal
     end
 
     def days_left
-      total_days_until(Date.current.end_of_month) - total_days_until
+      total_days_until(end_of_month) - total_days_until
+    end
+
+    private
+
+    def end_of_month
+      Date.new(Date.today.year, Date.today.month, -1)
     end
   end
 end

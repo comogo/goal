@@ -8,7 +8,7 @@ module Goal
     end
 
     def hours
-      entries_for_month.sum { |entry| entry['hours'].to_f }
+      entries_for_month.inject(0) { |sum, entry| sum + entry['hours'].to_f }
     end
 
     private
@@ -26,11 +26,11 @@ module Goal
     end
 
     def date_from
-      Date.current.beginning_of_month
+      Date.new Date.today.year, Date.today.month, 1
     end
 
     def date_to
-      Date.current.end_of_month
+      Date.new Date.today.year, Date.today.month, -1
     end
 
     def per_page
