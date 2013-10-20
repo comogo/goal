@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.executables << 'goal'
 
-  s.add_dependency("ruby-freshbooks", "~> 0.4.1")
+  s.add_dependency 'ruby-freshbooks', '~> 0.4.1'
 
-  s.add_development_dependency("colorize", "~> 0.6.0")
+  s.add_development_dependency 'colorize', '~> 0.6.0'
 end
