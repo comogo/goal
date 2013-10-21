@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.executables << 'goal'
 
   s.add_dependency 'ruby-freshbooks', '~> 0.4.1'
+  s.add_dependency 'colorize', '~> 0.6.0'
 
-  s.add_development_dependency 'colorize', '~> 0.6.0'
   s.add_development_dependency 'rspec', '~> 2.14.1'
   s.add_development_dependency 'rake'
 end
