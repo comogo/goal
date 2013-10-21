@@ -1,81 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'goal'
-require 'colorize'
 require 'optparse'
-
-class MyGoals
-  def initialize(options = {})
-    @base = Goal::Base.new
-    @calculator = Goal::HourCalculator.new
-    @goal_list = options.fetch(:goal_list, [160, 200, 250, 300])
-    @username  = options[:username]
-    @token     = options[:token]
-  end
-
-  def print
-    puts
-    print_header
-    print_data
-    print_footer
-    puts
-  end
-
-  private
-
-  attr_reader :base, :calculator, :goal_list, :username, :token
-
-  def print_header
-    puts '| Goals | Estimate | Avg. to Goal |'
-  end
-
-  def print_data
-    goals.each do |goal|
-      avg = calculator.rate_to_goal(goal[:goal], current_time).round(2)
-
-      puts '| ' + goal[:goal].to_s.ljust(5) + ' | ' + goal[:expected].to_i.to_s.ljust(8) + ' | ' + avg.to_s.ljust(12).colorize(average_color(avg)) + ' |'
-    end
-  end
-
-  def print_footer
-    puts '|_________________________________|'
-    puts "| Current:   " + "#{current_time}h".colorize(current_color)
-    puts "| Average:   " + "#{rate}h".colorize(current_color)
-    puts "| Days left: #{calculator.days_left}"
-  end
-
-  def current_time
-    @current_time ||= base.worked_time(username, token).round(2)
-  end
-
-  def rate
-    @rate ||= calculator.hour_rate(current_time).round(2)
-  end
-
-  def goals
-    base.calculate_goals goal_list
-  end
-
-  def current_color
-    if rate < 8
-      :red
-    elsif rate >= 8 && rate < 9
-      :yellow
-    else
-      :green
-    end
-  end
-
-  def average_color(avg)
-    if avg < 8
-      :green
-    elsif avg >= 8 && avg < 9
-      :yellow
-    else
-      :red
-    end
-  end
-end
 
 options = {}
 
@@ -95,4 +21,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-MyGoals.new(options).print
+calculator = Goal::Calculator.new(options)
+puts Goal::Report.new(calculator.generate_data)
+
