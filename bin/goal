@@ -41,7 +41,7 @@ class MyGoals
     puts '|_________________________________|'
     puts "| Current:   " + "#{current_time}h".colorize(current_color)
     puts "| Average:   " + "#{rate}h".colorize(current_color)
-    puts "| Left days: #{calculator.days_left}"
+    puts "| Days left: #{calculator.days_left}"
   end
 
   def current_time
