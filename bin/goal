@@ -5,7 +5,7 @@ require 'optparse'
 
 options = {}
 
-OptionParser.new do |opts|
+optparse = OptionParser.new do |opts|
   opts.banner = "Usage: goal [options]"
 
   opts.on("-u", "--username=USERNAME", "Freshbooks username") do |u|
@@ -19,7 +19,19 @@ OptionParser.new do |opts|
   opts.on("-g", "--goals=[GOALS]", "Your goal list. Ex 160:200:300") do |g|
     options[:goal_list] = g.split(':').map(&:to_i)
   end
-end.parse!
+
+  opts.on("-h", "--hours=HOURS", "Worked time in hours.") do |h|
+    options[:hours] = h.to_f
+  end
+end
+
+optparse.parse!
+
+unless options[:hours] || (options[:username] && options[:token])
+  puts 'Arguments -h or -u and -t are required.'
+  puts optparse
+  exit
+end
 
 calculator = Goal::Calculator.new(options)
 puts Goal::Report.new(calculator.generate_data)
