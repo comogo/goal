@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/goal.png)](http://badge.fury.io/rb/goal)
+
 Goal
 ====
 
