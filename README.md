@@ -29,9 +29,9 @@ $ goal -u freshbooks_user -t freshbooks_token
 | 250   | 152      | 14.93   |
 | 300   | 182      | 20.48   |
 |____________________________|
-| Current:   115.66h
-| Average:   8.26h
-| Days left: 9
+| Current time: 115.66h
+| Current rate: 8.26h
+| Days left:    9
 ```
 
 or
@@ -45,8 +45,8 @@ $ goal -h 115.66
 | 250   | 152      | 14.93   |
 | 300   | 182      | 20.48   |
 |____________________________|
-| Current:   115.66h
-| Average:   8.26h
+| Current time: 115.66h
+| Current rate: 8.26h
 | Days left: 9
 ```
 
