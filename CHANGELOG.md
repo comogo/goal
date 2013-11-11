@@ -1,3 +1,12 @@
+### 0.2.0
+
+* bug fix
+  * Fix the wrong average when in beginning or end of month, issue #1
+
+* new
+  * Add a extra option -m, it is used to calculate the current money based on
+    the current time.
+
 ### 0.1.0
 
 * bug fix
