@@ -23,6 +23,10 @@ optparse = OptionParser.new do |opts|
   opts.on("-h", "--hours=HOURS", "Worked time in hours.") do |h|
     options[:hours] = h.to_f
   end
+
+  opts.on("-m", "--money=MONEY", "The money rate.") do |m|
+    options[:money_rate] = m.to_f
+  end
 end
 
 optparse.parse!

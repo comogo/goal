@@ -47,6 +47,23 @@ $ goal -h 115.66
 |____________________________|
 | Current time: 115.66h
 | Current rate: 8.26h
+| Days left:    9
+```
+
+or
+
+```bash
+$ goal -h 115.66 -m 120
+
+| Goals | Expected | Average |
+| 160   | 97       | 4.93    |
+| 200   | 121      | 9.37    |
+| 250   | 152      | 14.93   |
+| 300   | 182      | 20.48   |
+|____________________________|
+| Current time:  115.66h
+| Current money: 13.879.20
+| Current rate:  8.26h
 | Days left: 9
 ```
 
@@ -58,6 +75,7 @@ Usage: goal [options]
     -t, --token=TOKEN                Freshbooks token
     -g, --goals=[GOALS]              Your goal list. Ex 160:200:300
     -h, --hours=HOURS                Worked time in hours.
+    -m, --money=MONEY                The money rate.
 ```
 
 Options `-u` and `-t` are required and specify the user and token to access the

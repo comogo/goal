@@ -26,10 +26,17 @@ module Goal
     end
 
     def footer
-      "|" + ('-' * ((column_width * 3) + 8)) + "|\n" +
-      "| Current time: #{data[:summary][:total_time]}\n" +
-      "| Current rate: #{data[:summary][:rate]}\n" +
-      "| Days left:    #{data[:summary][:days_left]}"
+      summary =  "|" + ('-' * ((column_width * 3) + 8)) + "|\n"
+      summary += "| Current time:  #{data[:summary][:total_time]}\n"
+
+      if data[:summary][:money]
+        summary += "| Current money: #{number_to_currency(data[:summary][:money])}\n"
+      end
+
+      summary += "| Current rate:  #{data[:summary][:rate]}\n"
+      summary += "| Days left:     #{data[:summary][:days_left]}"
+
+      summary
     end
 
     def row(columns)
@@ -42,6 +49,14 @@ module Goal
       columns.map do |c|
         c.to_s.ljust(column_width)
       end
+    end
+
+    def number_to_currency(value)
+      val_str = ("%.2f" % [value.to_s]).gsub('.', ',')
+
+      while val_str.sub!(/(\d+)(\d\d\d)/, '\1.\2'); end
+
+      val_str
     end
   end
 end

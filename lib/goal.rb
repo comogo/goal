@@ -10,6 +10,7 @@ module Goal
       @username  = options[:username]
       @token     = options[:token]
       @hours     = options[:hours]
+      @money_rate = options[:money_rate]
     end
 
     def worked_time
@@ -20,6 +21,10 @@ module Goal
       else
         0
       end.round(2)
+    end
+
+    def total_money
+      (worked_time * money_rate).round(2)
     end
 
     # It calculates the current hour rate
@@ -38,7 +43,8 @@ module Goal
 
     private
 
-    attr_reader :base, :calculator, :goal_list, :username, :token, :hours
+    attr_reader :base, :calculator, :goal_list, :username, :token, :hours,
+      :money_rate
 
     def freshbooks
       Goal::FreshbooksCalculator.new(username, token)
@@ -59,11 +65,15 @@ module Goal
     end
 
     def summary
-      {
+      data = {
         total_time: worked_time,
         rate: rate,
         days_left: calculator.days_left
       }
+
+      data[:money] = total_money if money_rate
+
+      data
     end
   end
 end
