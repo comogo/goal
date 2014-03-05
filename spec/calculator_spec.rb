@@ -14,13 +14,13 @@ describe Goal::Calculator do
 
     context 'with hours' do
       subject do
-        described_class.new(username: 'username', token: 'token')
+        described_class.new(username: 'username', token: 'token', project_id: 222)
       end
 
       it 'should return the freshbooks hours' do
         instance = double(:instance)
 
-        Goal::FreshbooksCalculator.should_receive(:new).with('username', 'token').and_return(instance)
+        Goal::FreshbooksCalculator.should_receive(:new).with('username', 'token', 222, 1).and_return(instance)
         instance.should_receive(:hours).and_return 55.55
 
         expect(subject.worked_time).to eq 55.55

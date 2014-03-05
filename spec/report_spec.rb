@@ -52,7 +52,7 @@ describe Goal::Report do
         report += "| 200      | 121.74   | 12.22    |\n"
         report += "|--------------------------------|\n"
         report += "| Current time:  90.0\n"
-        report += "| Current money: 15000.45\n"
+        report += "| Current money: 15.000,45\n"
         report += "| Current rate:  6.43\n"
         report += "| Days left:     9"
 

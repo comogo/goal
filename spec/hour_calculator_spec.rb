@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Goal::HourCalculator do
+  subject do
+    described_class.new(1)
+  end
+
   describe '#total_days_until' do
     it 'should calculate the business days from the beginning of the month until the specified day' do
       Date.stub(today: Date.new(2013, 10, 1))

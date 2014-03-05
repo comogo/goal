@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Goal::FreshbooksCalculator do
   let(:time_entry) { double(:time_entry) }
   let(:connection) { double(:connection, time_entry: time_entry) }
-  let(:end_of_month) { Date.new Date.today.year, Date.today.month, -1 }
-  let(:begin_of_month) { Date.new Date.today.year, Date.today.month, 1 }
+  let(:begin_of_month) { Date.new Date.today.year, Date.today.month, 5 }
 
   let :entries do
     {
@@ -29,7 +28,7 @@ describe Goal::FreshbooksCalculator do
   end
 
   subject do
-    described_class.new 'username', 'token'
+    described_class.new 'username', 'token', 12, 5
   end
 
   describe '#hours' do
@@ -38,7 +37,7 @@ describe Goal::FreshbooksCalculator do
         FreshBooks::Client.should_receive(:new).with('username.freshbooks.com', 'token').and_return(connection)
         time_entry.
           should_receive(:list).
-          with(date_from: begin_of_month, date_to: end_of_month, per_page: 1000).
+          with(date_from: begin_of_month, date_to: begin_of_month + 30, project_id: 12, per_page: 1000).
           and_return(entries)
 
         expect(subject.hours).to eq 15.9
@@ -50,7 +49,7 @@ describe Goal::FreshbooksCalculator do
         FreshBooks::Client.should_receive(:new).with('username.freshbooks.com', 'token').and_return(connection)
         time_entry.
           should_receive(:list).
-          with(date_from: begin_of_month, date_to: end_of_month, per_page: 1000).
+          with(date_from: begin_of_month, date_to: begin_of_month + 30, project_id: 12, per_page: 1000).
           and_return(error_entries)
 
         expect(subject.hours).to eq 0

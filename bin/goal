@@ -16,6 +16,10 @@ optparse = OptionParser.new do |opts|
     options[:token] = t
   end
 
+  opts.on("-p", "--project=PROJECT", "Freshbooks project id") do |p|
+    options[:project_id] = p.to_i
+  end
+
   opts.on("-g", "--goals=[GOALS]", "Your goal list. Ex 160:200:300") do |g|
     options[:goal_list] = g.split(':').map(&:to_i)
   end
@@ -27,11 +31,15 @@ optparse = OptionParser.new do |opts|
   opts.on("-m", "--money=MONEY", "The money rate.") do |m|
     options[:money_rate] = m.to_f
   end
+
+  opts.on("-d", "--start_day=START_DAY", "Start day.") do |s|
+    options[:start_day] = s.to_i
+  end
 end
 
 optparse.parse!
 
-unless options[:hours] || (options[:username] && options[:token])
+unless options[:hours] || (options[:username] && options[:token] && options[:project_id])
   puts 'Arguments -h or -u and -t are required.'
   puts optparse
   exit

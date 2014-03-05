@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goal (0.1.0)
+    goal (0.3.0)
       colorize (~> 0.6.0)
       ruby-freshbooks (~> 0.4.1)
 

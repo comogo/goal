@@ -5,18 +5,20 @@ require 'goal/report'
 module Goal
   class Calculator
     def initialize(options = {})
-      @calculator = Goal::HourCalculator.new
-      @goal_list = options.fetch(:goal_list, [160, 200, 250, 300])
-      @username  = options[:username]
-      @token     = options[:token]
-      @hours     = options[:hours]
+      @goal_list  = options.fetch(:goal_list, [160, 200, 250, 300])
+      @username   = options[:username]
+      @token      = options[:token]
+      @project_id = options[:project_id]
+      @hours      = options[:hours]
       @money_rate = options[:money_rate]
+      @start_day  = options.fetch(:start_day, 1)
+      @calculator = Goal::HourCalculator.new(start_day)
     end
 
     def worked_time
-      if hours
+      @time ||= if hours
         hours
-      elsif username && token
+      elsif username && token && project_id
         freshbooks.hours
       else
         0
@@ -44,10 +46,10 @@ module Goal
     private
 
     attr_reader :base, :calculator, :goal_list, :username, :token, :hours,
-      :money_rate
+      :money_rate, :start_day, :project_id
 
     def freshbooks
-      Goal::FreshbooksCalculator.new(username, token)
+      Goal::FreshbooksCalculator.new(username, token, project_id, start_day)
     end
 
     def goals
