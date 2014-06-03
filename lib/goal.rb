@@ -49,7 +49,7 @@ module Goal
       :money_rate, :start_day, :project_id
 
     def freshbooks
-      Goal::FreshbooksCalculator.new(username, token, project_id, start_day)
+      @freshbooks ||= Goal::FreshbooksCalculator.new(username, token, project_id, start_day)
     end
 
     def goals
