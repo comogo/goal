@@ -8,10 +8,18 @@ module Goal
       total = 0
       month = Date.today.month
       year  = Date.today.year
-      date.day.downto(start_day) do |day|
-        current = Date.new(year, month, day)
+      aux_date = date
 
-        total += 1 unless current.saturday? || current.sunday?
+      while (aux_date.day < start_day && aux_date.month == month) || (aux_date.day > start_day && aux_date.month == month -1) do
+        total += 1 unless aux_date.saturday? || aux_date.sunday?
+        aux_date  -= 1
+      end
+
+      aux_date = date
+
+      while (aux_date.day > start_day && aux_date.month == month) || (aux_date.day < start_day && aux_date.month == month + 1) do
+        total += 1 unless aux_date.saturday? || aux_date.sunday?
+        aux_date  -= 1
       end
 
       total
@@ -27,10 +35,14 @@ module Goal
     end
 
     def hour_rate(hours_until_now)
+      return 0 unless total_days_until > 0
+
       hours_until_now.to_f / total_days_until.to_f
     end
 
     def rate_to_goal(goal, hours_until_now)
+      return 0 unless days_left > 0
+
       (goal - hours_until_now) / days_left
     end
 

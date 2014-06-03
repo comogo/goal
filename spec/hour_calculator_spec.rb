@@ -9,17 +9,17 @@ describe Goal::HourCalculator do
     it 'should calculate the business days from the beginning of the month until the specified day' do
       Date.stub(today: Date.new(2013, 10, 1))
 
-      expect(subject.total_days_until Date.new(2013, 10, 17)).to eq 13 # Thursday
-      expect(subject.total_days_until Date.new(2013, 10, 18)).to eq 14 # Friday
-      expect(subject.total_days_until Date.new(2013, 10, 19)).to eq 14 # Saturday
-      expect(subject.total_days_until Date.new(2013, 10, 20)).to eq 14 # Sunday
-      expect(subject.total_days_until Date.new(2013, 10, 21)).to eq 15 # Monday
+      expect(subject.total_days_until Date.new(2013, 10, 17)).to eq 12 # Thursday
+      expect(subject.total_days_until Date.new(2013, 10, 18)).to eq 13 # Friday
+      expect(subject.total_days_until Date.new(2013, 10, 19)).to eq 13 # Saturday
+      expect(subject.total_days_until Date.new(2013, 10, 20)).to eq 13 # Sunday
+      expect(subject.total_days_until Date.new(2013, 10, 21)).to eq 14 # Monday
     end
 
     it 'it default option should be the current day' do
       Date.stub(today: Date.new(2013, 10, 18))
 
-      expect(subject.total_days_until).to eq 14
+      expect(subject.total_days_until).to eq 13
     end
   end
 
@@ -27,8 +27,8 @@ describe Goal::HourCalculator do
     it 'should calculate the calculate the current total time for goal until today' do
       Date.stub(today: Date.new(2013, 10, 18))
 
-      expect(subject.estimated_for(160)).to eq 97.39130434782608
-      expect(subject.estimated_for(200)).to eq 121.7391304347826
+      expect(subject.estimated_for(160)).to eq 94.54545454545455
+      expect(subject.estimated_for(200)).to eq 118.18181818181819
     end
   end
 
@@ -36,14 +36,14 @@ describe Goal::HourCalculator do
     it 'should calculate the hour rate from a given time and the past days' do
       Date.stub(today: Date.new(2013, 10, 18))
 
-      expect(subject.hour_rate(95)).to eq 6.785714285714286
+      expect(subject.hour_rate(95)).to eq 7.3076923076923075
     end
 
     context 'when on the last day of the month' do
       it 'should calculate the hour rate' do
         Date.stub(today: Date.new(2013, 10, 31))
 
-        expect(subject.hour_rate(200)).to eq 8.695652173913043
+        expect(subject.hour_rate(200)).to eq 9.090909090909092
       end
     end
 
@@ -52,7 +52,7 @@ describe Goal::HourCalculator do
         Date.stub(today: Date.new(2013, 10, 1))
 
         expect(subject.hour_rate(0)).to eq 0.0
-        expect(subject.hour_rate(5)).to eq 5.0
+        expect(subject.hour_rate(5)).to eq 0.0
       end
     end
   end

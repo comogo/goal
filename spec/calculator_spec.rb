@@ -36,7 +36,7 @@ describe Goal::Calculator do
     it 'should return calculate the rate' do
       Date.stub(today: Date.new(2013, 10, 20))
 
-      expect(subject.rate).to eq 6.43
+      expect(subject.rate).to eq 6.92
     end
   end
 
@@ -52,18 +52,18 @@ describe Goal::Calculator do
         rows: [
           {
             goal: 160,
-            expected: 97.39,
+            expected: 94.55,
             average: 7.0
           },
           {
             goal: 200,
-            expected: 121.74,
+            expected: 118.18,
             average: 11.0
           }
         ],
         summary: {
           total_time: 90.0,
-          rate: 6.43,
+          rate: 6.92,
           days_left: 10
         }
       })
