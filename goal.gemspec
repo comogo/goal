@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'ruby-freshbooks', '~> 0.4.1'
   s.add_dependency 'colorize', '~> 0.6.0'
-
+  s.add_dependency 'business_time', '~> 0.7.3'
   s.add_development_dependency 'rspec', '~> 2.14.1'
-  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rake', '~> 10.4.2'
+  s.add_development_dependency 'pry', '~> 0.10.1'
 end
