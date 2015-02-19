@@ -53,12 +53,14 @@ describe Goal::Calculator do
           {
             goal: 160,
             expected: 97.39,
-            average: 7.0
+            average: 7.0,
+            hours_left: 70.0
           },
           {
             goal: 200,
             expected: 121.74,
-            average: 11.0
+            average: 11.0,
+            hours_left: 110.0
           }
         ],
         summary: {

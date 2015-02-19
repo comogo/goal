@@ -1,3 +1,4 @@
+require 'goal/date_handler'
 require 'goal/hour_calculator'
 require 'goal/freshbooks_calculator'
 require 'goal/report'
@@ -59,7 +60,8 @@ module Goal
         calculated_goals.push({
           goal: goal,
           expected: calculator.estimated_for(goal).round(2),
-          average: calculator.rate_to_goal(goal, worked_time).round(2)
+          average: calculator.rate_to_goal(goal, worked_time).round(2),
+          hours_left: calculator.hours_to_goal(goal, worked_time).round(2)
         })
       end
 

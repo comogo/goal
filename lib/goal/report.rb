@@ -2,14 +2,14 @@ module Goal
   class Report
     def initialize(data, options = {})
       @data = data
-      @column_width = options.fetch(:column_width, 8)
+      @column_width = options.fetch(:column_width, 9)
     end
 
     def to_s
       output = row(header) + "\n"
 
       data[:rows].each do |r|
-        output += row([r[:goal], r[:expected], r[:average]]) + "\n"
+        output += row([r[:goal], r[:expected], r[:average], r[:hours_left]]) + "\n"
       end
 
       output += footer
@@ -22,11 +22,11 @@ module Goal
     attr_reader :data, :column_width
 
     def header
-      %w(Goals Expected Average)
+      %w(Goals Expected Average Left)
     end
 
     def footer
-      summary =  "|" + ('-' * ((column_width * 3) + 8)) + "|\n"
+      summary =  "|" + ('-' * ((column_width * 5) + 2)) + "|\n"
       summary += "| Current time:  #{data[:summary][:total_time]}\n"
 
       if data[:summary][:money]
