@@ -120,6 +120,24 @@ describe Goal::HourCalculator do
 
         expect(subject.days_left).to eq 10
       end
+
+      context 'when start day is bigger than today' do
+        it 'calculates days left from previous month to now' do
+          subject.stub(start_day: 21)
+          Date.stub(today: Date.new(2015, 2, 19))
+
+          expect(subject.days_left).to eq 2
+        end
+      end
+
+      context 'when end of period is on weekend' do
+        it "doesn't includes the weekend as business day" do
+          subject.stub(start_day: 23)
+          Date.stub(today: Date.new(2015, 2, 19))
+
+          expect(subject.days_left).to eq 2
+        end
+      end
     end
 
     context 'when in the end of the month' do

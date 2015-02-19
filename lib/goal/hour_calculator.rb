@@ -40,7 +40,7 @@ module Goal
     end
 
     def days_left
-      total_days_until(end_of_period(start_day) + 1) - total_days_until
+      total_days_until(end_of_period(start_day)) - total_days_until + 1
     end
 
     private
